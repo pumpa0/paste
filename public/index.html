@@ -25,6 +25,20 @@
           window.getSelection().removeAllRanges();
         });
 
+        paragraph.addEventListener('mousedown', function(event) {
+          if (event.detail > 1) {
+            event.preventDefault();
+          }
+        });
+
+        paragraph.addEventListener('selectstart', function(event) {
+          event.preventDefault();
+        });
+
+        paragraph.addEventListener('contextmenu', function(event) {
+          event.preventDefault();
+        });
+
         paragraph.addEventListener('copy', function(event) {
           event.preventDefault();
           event.clipboardData.setData('text/plain', paragraph.textContent);
@@ -37,7 +51,7 @@
     });
   </script>
 </head>
-<body oncontextmenu="return false;">
+<body>
   <h1>#thm</h1>
   <div id="content">
     <!-- Contoh paragraf; Anda bisa memperbanyak elemen ini hingga 1000 -->

@@ -16,28 +16,7 @@
           const selection = window.getSelection();
           selection.removeAllRanges();
           selection.addRange(range);
-
-          try {
-            const successful = document.execCommand('copy');
-            if (successful) {
-              alert('Text copied to clipboard');
-            } else {
-              alert('Unable to copy text');
-            }
-          } catch (err) {
-            alert('Oops, unable to copy');
-          }
-
-          selection.removeAllRanges();
         });
-
-        paragraph.addEventListener('copy', function(event) {
-          event.preventDefault();
-        });
-      });
-
-      document.addEventListener('copy', function(event) {
-        event.preventDefault();
       });
     });
   </script>

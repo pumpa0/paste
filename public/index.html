@@ -10,16 +10,33 @@
       const paragraphs = document.querySelectorAll('.copyable');
 
       paragraphs.forEach(paragraph => {
+        paragraph.addEventListener('click', function() {
+          paragraphs.forEach(p => p.classList.remove('selected'));
+          paragraph.classList.add('selected');
+        });
+
         paragraph.addEventListener('copy', function(event) {
           if (!paragraph.classList.contains('selected')) {
             event.preventDefault();
           }
         });
+      });
 
-        paragraph.addEventListener('click', function() {
-          paragraphs.forEach(p => p.classList.remove('selected'));
-          paragraph.classList.add('selected');
-        });
+      document.addEventListener('copy', function(event) {
+        const selected = document.querySelector('.copyable.selected');
+        if (!selected) {
+          event.preventDefault();
+        } else {
+          // Allow copy for the selected element and prevent others
+          paragraphs.forEach(p => {
+            if (p !== selected) {
+              p.classList.remove('selected');
+              p.addEventListener('copy', function(e) {
+                e.preventDefault();
+              });
+            }
+          });
+        }
       });
     });
   </script>

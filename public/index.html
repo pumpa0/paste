@@ -13,10 +13,26 @@
         paragraph.addEventListener('dblclick', function() {
           const range = document.createRange();
           range.selectNode(paragraph);
-          const selection = window.getSelection();
-          selection.removeAllRanges();
-          selection.addRange(range);
+          window.getSelection().removeAllRanges();
+          window.getSelection().addRange(range);
+
+          try {
+            document.execCommand('copy');
+          } catch (err) {
+            console.error('Oops, unable to copy', err);
+          }
+
+          window.getSelection().removeAllRanges();
         });
+
+        paragraph.addEventListener('copy', function(event) {
+          event.preventDefault();
+          event.clipboardData.setData('text/plain', paragraph.textContent);
+        });
+      });
+
+      document.addEventListener('copy', function(event) {
+        event.preventDefault();
       });
     });
   </script>

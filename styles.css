@@ -1,0 +1,10 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: black; /* Mengubah latar belakang menjadi hitam */
+  color: white; /* Mengubah warna teks menjadi putih */
+}
+
+.copyable {
+  cursor: pointer;
+  user-select: none;
+}

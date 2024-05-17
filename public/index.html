@@ -8,34 +8,36 @@
   <script>
     document.addEventListener('DOMContentLoaded', function() {
       const paragraphs = document.querySelectorAll('.copyable');
-      
-      // Initialize the state of copyable paragraphs
-      let selectedParagraph = null;
 
       paragraphs.forEach(paragraph => {
-        paragraph.addEventListener('click', function() {
-          // Deselect previously selected paragraph
-          if (selectedParagraph) {
-            selectedParagraph.classList.remove('selected');
+        paragraph.addEventListener('dblclick', function() {
+          const range = document.createRange();
+          range.selectNode(paragraph);
+          const selection = window.getSelection();
+          selection.removeAllRanges();
+          selection.addRange(range);
+
+          try {
+            const successful = document.execCommand('copy');
+            if (successful) {
+              alert('Text copied to clipboard');
+            } else {
+              alert('Unable to copy text');
+            }
+          } catch (err) {
+            alert('Oops, unable to copy');
           }
-          // Select the clicked paragraph
-          selectedParagraph = paragraph;
-          paragraph.classList.add('selected');
+
+          selection.removeAllRanges();
         });
 
         paragraph.addEventListener('copy', function(event) {
-          if (!paragraph.classList.contains('selected')) {
-            event.preventDefault();
-          }
+          event.preventDefault();
         });
       });
 
-      // Prevent copying from the whole document unless the selected paragraph is copied
       document.addEventListener('copy', function(event) {
-        const selection = window.getSelection();
-        if (!selectedParagraph || !selection.containsNode(selectedParagraph, true)) {
-          event.preventDefault();
-        }
+        event.preventDefault();
       });
     });
   </script>

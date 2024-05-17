@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>#thm</title>
+  <link rel="stylesheet" href="styles.css">
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const paragraphs = document.querySelectorAll('.copyable');
+
+      paragraphs.forEach(paragraph => {
+        paragraph.addEventListener('copy', function(event) {
+          if (!paragraph.classList.contains('selected')) {
+            event.preventDefault();
+          }
+        });
+
+        paragraph.addEventListener('click', function() {
+          paragraphs.forEach(p => p.classList.remove('selected'));
+          paragraph.classList.add('selected');
+        });
+      });
+    });
+  </script>
+</head>
+<body>
+  <h1>#thm</h1>
+  <div id="content">
+    <!-- Contoh paragraf; Anda bisa memperbanyak elemen ini hingga 1000 -->
+    <p class="copyable">Advice-Dog</p>
+    <p class="copyable">Advice-Doge</p>
+    <p class="copyable">Advice-God</p>
+    <!-- Tambahkan lebih banyak paragraf disini -->
+  </div>
+</body>
+</html>
